@@ -23,6 +23,7 @@ public class MainMenu extends Application {
         playButton.setPrefSize(500, 50);
         playButton.setStyle("-fx-font-size:40");
 
+        // created button that will diplay rules window when clicked
         Button ruleButton = new Button("How to Play");
         ruleButton.setPrefSize(500, 50);
         ruleButton.setStyle("-fx-font-size:40");
@@ -35,6 +36,7 @@ public class MainMenu extends Application {
 			}
         });
 
+        // created the exit button that will shutdown the application when clicked
         Button exitButton = new Button("Exit Game");
         exitButton.setPrefSize(500, 50);
         exitButton.setStyle("-fx-font-size:40");

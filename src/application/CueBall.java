@@ -76,7 +76,8 @@ public class CueBall {
 	}
 
 	/**
-	 * Shoots the cue ball based off of the directionLine created by the player.
+	 * Shoots the cue ball based off of the directionLine created by the player by clicking the ball
+	 * and dragging the mouse.
 	 * @param xPos x position the ball should land
 	 * @param yPos y position the ball should land
 	 */
@@ -138,9 +139,9 @@ public class CueBall {
 						ball.setCenterX(420.75);
 						path.play();
 						play = false;
+						// update the score
+						GameScreen.setScore(GameScreen.getScore() + 1);
 					}
-					// update the score
-					GameScreen.setScore(GameScreen.getScore() + 1);
 				}
 			});
 
@@ -176,20 +177,19 @@ public class CueBall {
 
 				ball.setCenterX(lines.get(lines.size() - 1).getEndX());
 				ball.setCenterY(lines.get(lines.size() - 1).getEndY());
-				System.out.println("Size: " + lines.size());
-				System.out.println("X: " + ball.getCenterX());
-				System.out.println("Y: " + ball.getCenterY());
-
-
 
 			}
-
-
 			path.play();
-
 		}
-
 	}
+
+	/**
+	 *
+	 * reflectLine function that reflects the ball at a proper angle if the ball hits the wall.
+	 * @param index variable used to indicate which reflection line from the lines list is used.
+	 * @param hitVal variable used to indicate which side of the table the ball is being shot at.
+	 *
+	 */
 
 	private void reflectLine(int index, int hitVal)
 	{
@@ -246,7 +246,6 @@ public class CueBall {
 			if (!hitPocket(newLine.getStartX(), newLine.getStartY(), newLine.getEndX(), newLine.getEndY()))
 			{
 				hitVal = hitEdge(lines.get(lines.size() - 1));
-				System.out.println("hitVal: " + hitVal);
 				reflectLine(lines.size() - 1, hitVal);
 			}
 			else
@@ -299,6 +298,14 @@ public class CueBall {
 
 	}
 
+	/**
+	 *
+	 * getIntersection function used to determine the angle at which the ball will be reflected.
+	 * @param line variable used for the direction the bounce shot will go.
+	 * @param hitVal variable used to indicate which side of the table the ball is being shot at.
+	 * @return Point2D returns the point where the ball should end up after the shot.
+	 */
+
 	private Point2D getIntersection(Line line, int hitVal)
 	{
 		double m = (line.getEndY() - line.getStartY()) / (line.getEndX() - line.getStartX());
@@ -344,7 +351,13 @@ public class CueBall {
 
 		Point2D intersection = new Point2D(x, y);
 		return intersection;
+
 	}
+	/**
+	 * hitEdge function used to see which table edge is being shot at.
+	 * @param line variable used to see which edge of the table the directionLine is facing.
+	 * @return int returns an int that corresponds to an edge of the table or the felt.
+	 */
 
 	private int hitEdge(Line line)
 	{
@@ -387,6 +400,15 @@ public class CueBall {
 		return -1;
 
 	}
+
+	/**
+	 * hitPocket function used to detect whether the cue ball hit the pocket.
+	 * @param xStart the starting X position of the ball.
+	 * @param yStart the starting Y position of the ball.
+	 * @param xEnd the final X position of the ball.
+	 * @param yEnd the final Y position of the ball.
+	 * @return bool returns true if the directionLine from shootCue is aimed at a pocket.
+	 */
 
 	private boolean hitPocket(double xStart, double yStart, double xEnd, double yEnd)
 	{
@@ -451,6 +473,16 @@ public class CueBall {
 		return false;
 	}
 
+	/**
+	 * isBetween function used to decide if the directionLine is aimed at the pocket or not.
+	 * @param x1 the starting X position of the line
+	 * @param y1 the starting y position of the line
+	 * @param x2 the final X position of the line
+	 * @param y2 the final Y position of the line
+	 * @param x3 the x position of the pocket
+	 * @param y3 the y position of the pocket
+	 * @return bool returns true if the directionLine is between the pocket
+	 */
 	private boolean isBetween(double x1, double y1, double x2, double y2, double x3, double y3)
 	{
 		boolean xBetween = false;
@@ -482,14 +514,16 @@ public class CueBall {
 	}
 
 	/**
-	 * @return the cue ball object
+	 * getBall accessor for the ball object
+	 * @return Circle returns the ball object
 	 */
 	public Circle getBall() {
 		return ball;
 	}
 
 	/**
-	 * @return the direction line shown when player is lining up a shot
+	 * getDirectionLine accessor for the directionLine object
+	 * @return Line returns the line object
 	 */
 	public Line getDirectionLine() {
 		return directionLine;
