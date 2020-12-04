@@ -6,10 +6,25 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The Game Screen class creates and hosts the game of pool.
+ *
+ * @author Jack Bragg
+ *
+ */
 public class GameScreen extends Application {
 
+	private static int score = 0; // how many times the ball was pocketed
+	private static Text scoreDisplay;
+
+	/**
+	 * start will launch the window.
+	 * @param stage holds everything you see in the window
+	 */
 	@Override
 	public void start(Stage stage) throws Exception {
 		// outer table is the wooden looking part
@@ -52,11 +67,41 @@ public class GameScreen extends Application {
 		CueBall makeCueBall = new CueBall(420.75, 321.84, Color.WHITE);
 		Circle cueBall = makeCueBall.getBall();
 
+		Text scoreText = new Text(825, 75, "Score:"); // just displays "Score:" next to the score
+		scoreText.setFont(new Font(50));
+		scoreDisplay = new Text(1000, 75, String.valueOf(score)); // will display the score
+		scoreDisplay.setFont(new Font(50));
+
 		// create the group object which holds all the objects of the scene
-		Group group = new Group(outerTable, innerTable, topLeftP, bottomLeftP, topRightP, bottomRightP, topMidP, bottomMidP, cueBall, makeCueBall.getDirectionLine());
+		Group group = new Group(outerTable, innerTable, topLeftP, bottomLeftP, topRightP, bottomRightP, topMidP, bottomMidP, cueBall, makeCueBall.getDirectionLine(), scoreText, scoreDisplay);
 		Scene scene = new Scene(group, 1152, 648, Color.BEIGE);
 
 		stage.setScene(scene);
 		stage.show();
+	}
+
+	/**
+	 * to allow pocketing of cue ball to change the score
+	 * @param score the number to update score to
+	 */
+	public static void setScore(int score) {
+		GameScreen.score = score;
+		setScoreDisplay(score);
+	}
+
+	/**
+	 * to allow the cue ball to access the score in order to change it
+	 * @return the current score
+	 */
+	public static int getScore() {
+		return score;
+	}
+
+	/**
+	 * Change the displayed score to current score
+	 * @param score the current score
+	 */
+	public static void setScoreDisplay(int score) {
+		scoreDisplay.setText(String.valueOf(score));
 	}
 }
