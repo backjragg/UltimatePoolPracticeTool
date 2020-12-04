@@ -8,6 +8,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/**
+ *
+ * GameScreen class that creates the screen where the ball and table are set up
+ *
+ */
+
 public class GameScreen extends Application {
 
 	@Override

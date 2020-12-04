@@ -7,6 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
+/**
+ *
+ * MainMenu class for the Main Menu where the game is accessed from
+ *
+ */
 
 public class MainMenu extends Application {
 	@Override
